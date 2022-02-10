@@ -1,0 +1,17 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        ans= 0
+        n=len(nums)
+        preSum = [nums[0]]
+        h= {}
+        h[0] = 1
+        for i in nums[1:]:
+            preSum.append(i+preSum[-1])
+        for i in preSum:
+            if i-k in h:
+                ans+=h[i-k]
+            h[i] = h.get(i,0) + 1 
+        return ans
+
+        
+        
