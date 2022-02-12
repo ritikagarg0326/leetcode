@@ -1,0 +1,31 @@
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        n = len(beginWord)
+        chars_at_idx = [set() for _ in range(n)]
+
+        for w in wordList:
+            for i, c in enumerate(w):
+                chars_at_idx[i].add(c)
+
+        dictionary = set(wordList)
+        q = deque([(beginWord, 1)])
+
+        while q:
+            cur, level = q.popleft()
+
+            for i, cur_i in enumerate(cur):
+                for c in chars_at_idx[i]:
+                    if c != cur_i:
+                        new_word = cur[:i] + c + cur[i + 1:]
+
+                        if new_word in dictionary:  # unvisited
+                            if new_word == endWord:
+                                return level + 1
+
+                            dictionary.remove(new_word)
+                            q.append((new_word, level + 1))
+                        elif not dictionary:  # optimization
+                            return 0
+
+        return 0
+        
