@@ -1,0 +1,4 @@
+if not root:
+            return  0
+        leftLevel = 1 + self.maxDepth(root.left)
+        rightLevel = 1 + self.maxDepth(root.right)
